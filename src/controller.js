@@ -26,10 +26,12 @@ module.exports = (config) => {
     }, measures));
   });
 
-  app.get('/all/metrics', (req, res) => {
+  app.get('/:taskName/metrics', (req, res) => {
     loadConfig(config.configPath).then(config => {
-      Promise.all(config.tasks.map(runTask))
-        .then(lines => {
+      Promise.all(config.tasks
+        .filter(task =>  req.params.taskName === 'all' || req.params.taskName === task.name)
+        .map(task => req.params.url !== '' && (task.query.url = req.params.url))
+        .map(runTask)).then(lines => {
           internalMetricCounter.increment({metric: 'all', state: 'success'});
           res.set({'Content-Type': 'text/plain'});
           res.send(lines.join('\n'));
