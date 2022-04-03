@@ -4,8 +4,6 @@ WORKDIR /app
 RUN npm install --production
 # remove development dependencies
 RUN npm prune --production
-# run node prune
-RUN /usr/local/bin/node-prune
 
 FROM node:17-alpine
 ARG GIT_REF
