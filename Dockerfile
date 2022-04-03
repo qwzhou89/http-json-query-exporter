@@ -7,7 +7,7 @@ ENV PORT=8000
 
 EXPOSE $PORT
 
-ADD . /app
+COPY package*.json index.js src example /app/
 
 WORKDIR /app
 
