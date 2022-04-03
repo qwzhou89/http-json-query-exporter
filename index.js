@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 const config = {
-  configPath: process.env.CONFIG_PATH || './example/config.yml'
+  configPath: process.env.CONFIG_PATH || './config.yml'
 };
 
 const controller = require('./src/controller')(config);
