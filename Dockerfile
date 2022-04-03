@@ -10,7 +10,7 @@ ARG GIT_REF
 ENV GIT_REF ${GIT_REF}
 ENV PORT=8000
 EXPOSE $PORT
-COPY --from=BUILD_IMAGE /app/src /app/example /app/index.js ./
-COPY --from=BUILD_IMAGE /app/node_modules ./node_modules
+COPY --from=BUILD_IMAGE /app/src /app/example /app/index.js /app/
+COPY --from=BUILD_IMAGE /app/node_modules /app/node_modules
 WORKDIR /app
 CMD ["node", "index.js"]
