@@ -30,7 +30,11 @@ module.exports = (config) => {
     loadConfig(config.configPath).then(config => {
       Promise.all(config.tasks
         .filter(task => req.params.taskName === 'all' || req.params.taskName === task.name)
-        .map(task => { !!req.query.url && (task.query.url = req.query.url); return task; })
+        .map(task => { 
+          !!req.query.url && (task.query.url = req.query.url); 
+          !!req.query.proxy && (task.query.proxy = JSON.parse(req.query.proxy)); 
+          return task; 
+        })
         .map(runTask)).then(lines => {
           internalMetricCounter.increment({ metric: 'all', state: 'success' });
           res.set({ 'Content-Type': 'text/plain' });
