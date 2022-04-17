@@ -3,6 +3,7 @@ const runTask = require('./runTask');
 const loadConfig = require('./loadConfig');
 const internalMetricCounter = require('./internalMetricCounter');
 const renderPrometheusMetric = require('./renderPrometheusMetric');
+const SocksProxyAgent = require('socks-proxy-agent');
 
 module.exports = (config) => {
   const app = express();
@@ -32,7 +33,7 @@ module.exports = (config) => {
         .filter(task => req.params.taskName === 'all' || req.params.taskName === task.name)
         .map(task => { 
           !!req.query.url && (task.query.url = req.query.url); 
-          !!req.query.proxy && (task.query.proxy = JSON.parse(req.query.proxy)); 
+          !!req.query.proxy && (task.query.httpsAgent = new SocksProxyAgent(req.query.proxy)); 
           return task; 
         })
         .map(runTask)).then(lines => {
