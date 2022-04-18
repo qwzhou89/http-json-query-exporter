@@ -1,4 +1,5 @@
 const axios = require('axios');
+const util = require('util');
 
 module.exports = async (options) => {
   return axios.request(Object.assign({
@@ -8,6 +9,6 @@ module.exports = async (options) => {
       return res.data;
     })
     .catch((err) => {
-      throw new Error(`httpQuery failed ${err.message} with options=${JSON.stringify(options).replace(/\\n/g, '')}`);
+      throw new Error(`httpQuery failed ${err.message} with options=${util.inspect(options).replace(/\\n/g, '')}`);
     });
 };

@@ -3,7 +3,7 @@ const runTask = require('./runTask');
 const loadConfig = require('./loadConfig');
 const internalMetricCounter = require('./internalMetricCounter');
 const renderPrometheusMetric = require('./renderPrometheusMetric');
-const SocksProxyAgent = require('socks-proxy-agent');
+const { SocksProxyAgent } = require('socks-proxy-agent');
 
 module.exports = (config) => {
   const app = express();
